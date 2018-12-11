@@ -1,7 +1,12 @@
 # AlphaPar<!-- omit in toc -->
 Projet CyberSecurité du [groupe 1](#l%C3%A9quipe-de-travail), promotion A5 de Exia CESI Arras. Plus d'informations détaillées sur le Wiki du projet : [Wiki](https://github.com/Araxar/AlphaPar/wiki)
 
-Build API : &nbsp; [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20API)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=-1)
+## Builds<!-- omit in toc -->
+| API | Linux Client | Windows Client |
+|-----|--------------|----------------|
+| [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20API)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=-1) | 
+
+Build API : &nbsp; 
 # Table des matières<!-- omit in toc -->
 - [Contexte du projet](#contexte-du-projet)
 - [L'équipe de travail](#l%C3%A9quipe-de-travail)
