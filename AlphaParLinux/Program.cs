@@ -6,7 +6,7 @@ namespace AlphaParLinux
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello World! Je test la CI");
         }
     }
 }
