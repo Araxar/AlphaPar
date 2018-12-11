@@ -4,9 +4,8 @@ Projet CyberSecurité du [groupe 1](#l%C3%A9quipe-de-travail), promotion A5 de E
 ## Builds<!-- omit in toc -->
 | API | Linux Client | Windows Client |
 |-----|--------------|----------------|
-| [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20API)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=-1) | 
+| [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20API)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=-1) | [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20Linux%20Client)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=3) | [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20Windows%20Client)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=5)
 
-Build API : &nbsp; 
 # Table des matières<!-- omit in toc -->
 - [Contexte du projet](#contexte-du-projet)
 - [L'équipe de travail](#l%C3%A9quipe-de-travail)
