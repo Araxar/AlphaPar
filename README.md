@@ -25,10 +25,10 @@ Une fois l’audit effectué, les experts recevront le rapport d’audit afin de
 Pour plus d'information : [Voir le Wiki du Projet](https://github.com/Araxar/AlphaPar/wiki)
 
 ## L'équipe de travail
-- Martin Wallet, _Ingénieur réseau_
-- Mathieu Carlier, _Ingénieur système_
-- Luigi Gandossi, _Ingénieur logiciel_
-- Guillaume Deramoudt, _Ingénieur logiciel_
+- **Martin Wallet**, _Ingénieur réseau_
+- **Mathieu Carlier**, _Ingénieur système_
+- **Luigi Gandossi**, _Ingénieur logiciel_
+- **Guillaume Deramoudt**, _Ingénieur logiciel_
 
 ## Architecture Sytème
 
