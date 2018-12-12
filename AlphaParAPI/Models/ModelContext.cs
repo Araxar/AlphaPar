@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace AlphaParAPI.Models
 {
@@ -14,16 +10,17 @@ namespace AlphaParAPI.Models
             
         }
 
+        // Déclaration des différentes tables de la base 
         public DbSet<Customer> Customer { get; set; }
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Plan> Plan { get; set; }
         public DbSet<Piece> Piece { get; set; }
         public DbSet<ProductionChain> ProductionChain { get; set; }
-
         public DbSet<Command> Command { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Déclaration des relations many to many
             modelBuilder.Entity<PieceProductionChain>()
                 .HasKey(t => new { t.IdPiece, t.IdProductionChain});
 
