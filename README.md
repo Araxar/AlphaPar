@@ -2,9 +2,10 @@
 Projet CyberSecurité du [groupe 1](#l%C3%A9quipe-de-travail), promotion A5 de Exia CESI Arras. Plus d'informations détaillées sur le Wiki du projet : [Wiki](https://github.com/Araxar/AlphaPar/wiki)
 
 ## Builds<!-- omit in toc -->
-| API | Linux Client | Windows Client |
-|-----|--------------|----------------|
-| [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20API)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=-1) | [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20Linux%20Client)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=3) | [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20Windows%20Client)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=5)
+|  | API | Linux Client | Windows Client |
+|--|-----|--------------|----------------|
+| Master | [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20API)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=-1) | [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20Linux%20Client)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=3) | [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20Windows%20Client)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=5) 
+| Dev | [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20API-DEV)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=6) | [![Build status](https://dev.azure.com/CyberSecu/AlphaPar/_apis/build/status/Build%20Linux%20Client-DEV)](https://dev.azure.com/CyberSecu/AlphaPar/_build/latest?definitionId=7) |  |
 
 # Table des matières<!-- omit in toc -->
 - [Contexte du projet](#contexte-du-projet)
