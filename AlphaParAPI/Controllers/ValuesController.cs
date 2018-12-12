@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AlphaParAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AlphaParAPI.Controllers
 {
@@ -22,7 +23,11 @@ namespace AlphaParAPI.Controllers
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
-        {           
+        {
+            var a = _context.Piece
+                .Include(piece => piece.PieceProductionChains)
+                .ToList();
+             
             return new string[] { "value1", "value2" };
         }
 

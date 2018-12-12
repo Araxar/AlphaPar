@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace AlphaParAPI.Models
 {
-    public class Customer : BaseEntity
+    public class Employee : BaseEntity
     {
         public string Name { get; set; }
-        public string Siret { get; set; }
+        public string Surname { get; set; }
+        public string DateOfBirth { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
     }
