@@ -1,43 +1,51 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using AlphaParAPI.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace AlphaParAPI
 {
     public class Program
     {
-        public static void Main(string[] args)
-        {
-            // CreateWebHostBuilder(args).Build().Run();
+        public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddEnvironmentVariables()
+            .Build();
 
-            var webHost = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    var env = hostingContext.HostingEnvironment;
-                    config.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
-                    config.AddEnvironmentVariables();
-                })
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
-                    logging.AddEventSourceLogger();
-                })
+        public static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseSerilog()
+                .UseKestrel()
                 .Build();
 
-            webHost.Run();
-            
+        public static void Main(string[] args)
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .ReadFrom.Configuration(Configuration)
+                .Enrich.WithProperty("ApplicationName", "AlphaParAPI")
+                .WriteTo.File("AlphaParLog.txt",
+                    outputTemplate: "{Timestamp: yyyy-MM-dd HH:mm:ss} [{Level:u3}] ({ApplicationName}) {Message:lj}{NewLine}{Properties:j}")
+                .CreateLogger();
+
+            try
+            {
+                BuildWebHost(args).Run();
+                return;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Host could not start because of an unknown error");
+                return;
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
