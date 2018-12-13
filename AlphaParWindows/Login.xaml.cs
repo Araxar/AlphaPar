@@ -27,7 +27,9 @@ namespace AlphaParWindows
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            // View Expense Report
+            test expenseReportPage = new test(this.peopleListBox.SelectedItem);
+            this.NavigationService.Navigate(expenseReportPage);
         }
     }
 }

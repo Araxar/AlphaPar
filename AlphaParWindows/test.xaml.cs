@@ -16,14 +16,19 @@ using System.Windows.Shapes;
 namespace AlphaParWindows
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour test.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class test : Page
     {
-        public MainWindow()
+        public test(object data) : this()
+        {
+            // Bind to expense report data.
+            this.DataContext = data;
+        }
+
+        public test()
         {
             InitializeComponent();
         }
-        
     }
 }
