@@ -10,11 +10,11 @@ namespace AlphaParAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class ValuesController : ControllerBase
     {
         private readonly ModelContext _context;
 
-        public CustomerController(ModelContext context)
+        public ValuesController(ModelContext context)
         {
             _context = context;
         }
