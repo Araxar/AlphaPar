@@ -28,8 +28,11 @@ namespace AlphaParAPI
                 .MinimumLevel.Information()
                 .ReadFrom.Configuration(Configuration)
                 .Enrich.WithProperty("ApplicationName", "AlphaParAPI")
-                .WriteTo.File("AlphaParLog.txt",
-                    outputTemplate: "{Timestamp: yyyy-MM-dd HH:mm:ss} [{Level:u3}] ({ApplicationName}) {Message:lj}{NewLine}{Properties:j}")
+                .WriteTo.Console()
+                .WriteTo.MSSqlServer(Configuration.GetConnectionString("AlphaParLog"), "LogSecu", autoCreateSqlTable: true)
+                .WriteTo.File("AlphaParLog-.txt",
+                    outputTemplate: "{Timestamp: yyyy-MM-dd HH:mm:ss} [{Level:u3}] ({ApplicationName}) {Message:lj}{NewLine}{Properties:j}",
+                    rollingInterval: RollingInterval.Hour)
                 .CreateLogger();
 
             try
