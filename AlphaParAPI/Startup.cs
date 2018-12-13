@@ -38,7 +38,7 @@ namespace AlphaParAPI
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddAuthentication().AddMicrosoftAccount();
             
             services.AddDbContext<ModelContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AlphaParDatabase")));
@@ -58,6 +58,7 @@ namespace AlphaParAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

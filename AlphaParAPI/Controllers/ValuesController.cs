@@ -10,11 +10,11 @@ namespace AlphaParAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class CustomerController : ControllerBase
     {
         private readonly ModelContext _context;
 
-        public ValuesController(ModelContext context)
+        public CustomerController(ModelContext context)
         {
             _context = context;
         }
@@ -27,6 +27,7 @@ namespace AlphaParAPI.Controllers
             var a = _context.Piece
                 .Include(piece => piece.PieceProductionChains)
                 .ToList();
+            
              
             return new string[] { "value1", "value2" };
         }

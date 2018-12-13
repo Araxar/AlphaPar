@@ -1,0 +1,27 @@
+﻿<Page x:Name="Background" x:Class="AlphaParWindows.Login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AlphaParWindows"
+      mc:Ignorable="d"
+      Title="Login" Height="350" Width="520">
+
+    <Grid Background="White" Width="520" Height="350">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="Titre" Height="29" Margin="10,97,10,0" TextWrapping="Wrap" Text="Veuillez entrez vos identifiants" VerticalAlignment="Top" RenderTransformOrigin="0.412,0.207" Grid.Column="1" FontSize="20" FontFamily="Calibri Light" TextAlignment="Center"/>
+        <TextBox x:Name="TbUsername" Text="Nom Utilisateur" Height="25" Margin="40,154,40,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1"/>
+        <TextBox x:Name="TbPassword" Height="25" Margin="40,192,40,0" TextWrapping="Wrap" Text="Mot de Passe" VerticalAlignment="Top" Grid.Column="1"/>
+        <Button x:Name="BtnSignIn" Content="Se connecter" Grid.Column="1" Height="26" Margin="70,252,70,0" VerticalAlignment="Top" Click="Button_Click" Background="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+
+
+    </Grid>
+</Page>
