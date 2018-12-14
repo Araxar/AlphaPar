@@ -19,7 +19,7 @@ namespace AlphaParAPI
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseSerilog()
-                .UseKestrel()
+                .UseIISIntegration()
                 .Build();
 
         public static void Main(string[] args)
