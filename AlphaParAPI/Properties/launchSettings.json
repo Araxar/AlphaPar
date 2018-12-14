@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": true,
     "anonymousAuthentication": false,
+    "iis": {
+      "applicationUrl": "https://www.alphaparapi.com",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:64156",
       "sslPort": 44347
@@ -25,6 +29,12 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
+    },
+    "IIS": {
+      "commandName": "IIS",
+      "workingDirectory": "C:\\Users\\Araxar\\source\\repos\\AlphaPar\\AlphaParAPI",
+      "launchBrowser": true,
+      "launchUrl": "https://www.alphaparapi.com/api/values"
     }
   }
 }
