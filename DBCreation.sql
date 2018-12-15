@@ -58,3 +58,8 @@ CREATE TABLE [dbo].[PieceProductionChain]
 	CONSTRAINT [FK_Piece_PieceProductionChain] FOREIGN KEY ([IdPiece]) REFERENCES [Piece]([Id]), 
 	CONSTRAINT [FK_ProductionChain_PieceProductionChain] FOREIGN KEY ([IdProductionChain]) REFERENCES [ProductionChain]([Id]),
 );
+
+DROP TABLE [dbo].[PieceProductionChain]
+
+ALTER TABLE [dbo].[Piece]
+ADD IdProductionChain NVARCHAR (36) NOT NULL

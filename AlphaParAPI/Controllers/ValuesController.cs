@@ -24,11 +24,6 @@ namespace AlphaParAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            var a = _context.Piece
-                .Include(piece => piece.PieceProductionChains)
-                .ToList();
-            
-             
             return new string[] { "value1", "value2" };
         }
 
@@ -36,7 +31,7 @@ namespace AlphaParAPI.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
-            
+
             return "value";
         }
 

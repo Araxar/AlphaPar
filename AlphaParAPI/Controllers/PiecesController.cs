@@ -2,45 +2,92 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AlphaParAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace AlphaParAPI.Controllers
 {
     [Route("api/pieces")]
-    public class PiecesController : Controller
+    public class PiecesController : ControllerBase
     {
+        private readonly ModelContext _context;
+
+        public PiecesController(ModelContext context)
+        {
+            _context = context;
+        }
+
         // GET: api/pieces
-        [HttpGet]
+        [HttpGet("", Name = "GetPieces")]
         public ActionResult<List<Piece>> GetPieces()
         {
             // Return the pieces list
-            return null;
+            return _context.Piece.Include(x => x.ProductionChain).ToList();
         }
 
         // GET api/pieces/id
-        [HttpGet("{id}")]
-        public ActionResult<string> GetPiece(string id)
+        [HttpGet("{id}", Name = "GetPiece")]
+        public ActionResult<Piece> GetPiece(string id)
         {
             // Return the specified piece
-            return "Piece";
+            var specifiedPiece = _context.Piece.Find(id);
+
+            if (specifiedPiece == null)
+            {
+                return NotFound();
+            }
+
+            return specifiedPiece;
         }
 
         // POST api/pieces
         [HttpPost]
-        public ActionResult AddPiece(Piece piece)
+        public ActionResult AddPiece([FromBody]Piece piece)
         {
             // Create the piece with all information
-            return null;
+            var specifiedProductionChain = _context.Plan.Find(piece.IdProductionChain);
+            if (piece.Name == null || specifiedProductionChain == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _context.Piece.Add(piece);
+                _context.SaveChanges();
+
+                return Ok();
+            }
         }
 
         // PUT api/pieces/id
         [HttpPut("{id}")]
-        public ActionResult ModifyPiece(string id, Piece piece)
+        public ActionResult ModifyPiece(string id, [FromBody]Piece piece)
         {
             // Update the specified piece
-            return null;
+            var specifiedPiece = _context.Piece.Find(id);
+            if (specifiedPiece == null)
+            {
+                return NotFound();
+            }
+
+
+            if (piece.Name == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                specifiedPiece.Name = piece.Name;
+                specifiedPiece.Stock = piece.Stock;
+            }
+
+            _context.Piece.Update(specifiedPiece);
+            _context.SaveChanges();
+
+            return Ok();
         }
 
         // DELETE api/pieces/id
@@ -48,11 +95,17 @@ namespace AlphaParAPI.Controllers
         public IActionResult DeletePiece(string id)
         {
             // Delete the specified piece
-            return null;
-        }
-    }
+            var specifiedPiece = _context.Piece.Find(id);
+            var PieceExistsInPlan = _context.Plan.Select(x => x.IdPiece == id).FirstOrDefault();
 
-    public class Piece
-    {
+            if (specifiedPiece == null || PieceExistsInPlan)
+            {
+                return NotFound();
+            }
+
+            _context.Piece.Remove(specifiedPiece);
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }
