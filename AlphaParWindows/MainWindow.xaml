@@ -1,6 +1,19 @@
 ﻿<NavigationWindow x:Class="AlphaParWindows.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="500" Source="Login.xaml">
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  Title="MainWindow"
+                  Height="500" 
+                  Width="400" 
+                  Source="Employee.xaml"
+                  BorderThickness="1"
+                  BorderBrush="LightGray" 
+                  WindowStyle="SingleBorderWindow"
+                  FontFamily="Arial"
+                  ResizeMode="NoResize"
+                  WindowStartupLocation="CenterScreen"
+                  Background="WhiteSmoke"   
+                  ShowsNavigationUI="False"
+                  >
+    
     
 </NavigationWindow>

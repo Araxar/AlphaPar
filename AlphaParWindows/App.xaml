@@ -12,12 +12,23 @@
             <Setter Property="Label.Foreground" Value="#0066cc"></Setter>
         </Style>
 
+
+
         <!-- Label style -->
         <Style x:Key="labelStyle" TargetType="{x:Type Label}">
             <Setter Property="VerticalAlignment" Value="Top" />
             <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="FontWeight" Value="Bold" />
             <Setter Property="Margin" Value="0,0,0,5" />
+        </Style>
+
+        <!-- TextBlock Header style -->
+        <Style x:Key="textblockStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0,0,0,5" />
+            <Setter Property="Label.FontSize" Value="13"></Setter>
         </Style>
 
         <!-- DataGrid header style -->

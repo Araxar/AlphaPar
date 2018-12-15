@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,15 +16,18 @@ using System.Windows.Shapes;
 namespace AlphaParWindows
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour Client.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class Client : Page
     {
-        public MainWindow()
+        public Client()
         {
             InitializeComponent();
-            this.Title = $"Main Window - {System.Security.Principal.WindowsIdentity.GetCurrent().Name}";
         }
-        
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
