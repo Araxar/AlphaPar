@@ -22,7 +22,7 @@ namespace AlphaParAPI.Controllers
 
         // GET: api/productionChain
         [HttpGet("", Name = "GetProductionChains")]
-        public ActionResult<List<ProductionChain>> GetProductionChains()
+        public IEnumerable<ProductionChain> GetProductionChains()
         {
             // Return the production chains list
             return _context.ProductionChain.ToList();
@@ -48,10 +48,17 @@ namespace AlphaParAPI.Controllers
         public ActionResult AddProductionChain([FromBody]ProductionChain productionChain)
         {
             // Create a production chain with all information
-            _context.ProductionChain.Add(productionChain);
-            _context.SaveChanges();
+            if (productionChain.Name == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _context.ProductionChain.Add(productionChain);
+                _context.SaveChanges();
 
-            return Ok();
+                return Ok();
+            }
         }
 
         // PUT api/productionChain/ids
@@ -73,7 +80,6 @@ namespace AlphaParAPI.Controllers
             else
             {
                 specifiedProductionChain.Name = productionChain.Name;
-                specifiedProductionChain.PieceProductionChains = productionChain.PieceProductionChains;
             }
 
             _context.ProductionChain.Update(specifiedProductionChain);
@@ -82,29 +88,15 @@ namespace AlphaParAPI.Controllers
             return Ok();
         }
 
-        // PUT api/piecesToProductionChain/ids
-        [HttpPut("{ids}")]
-        public IActionResult AddPiecesToProductionChain(List<string> ids)
-        {
-            // Add pieces to the production chain
-            return null;
-        }
-
-        // DELETE api/piecesToProductionChain/ids
-        [HttpDelete("{ids}")]
-        public IActionResult DeletePiecesFromProductionChain(List<string> ids)
-        {
-            // Delete pieces from the production chain
-            return null;
-        }
-
         // DELETE api/productionChain/id
         [HttpDelete("{id}")]
         public IActionResult DeleteProductionChain(string id)
         {
             // Delete the specified production chain
             var specifiedProductionChain = _context.ProductionChain.Find(id);
-            if (specifiedProductionChain == null)
+            var ProductionChainExistsInPiece = _context.Piece.Select(x => x.IdProductionChain == id).FirstOrDefault();
+
+            if (specifiedProductionChain == null || ProductionChainExistsInPiece)
             {
                 return NotFound();
             }

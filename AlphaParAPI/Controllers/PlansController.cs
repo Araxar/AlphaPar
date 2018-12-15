@@ -48,10 +48,19 @@ namespace AlphaParAPI.Controllers
         public ActionResult AddPlan([FromBody]Plan plan)
         {
             // Create the plan with all information
-            _context.Plan.Add(plan);
-            _context.SaveChanges();
+            var specifiedPiece = _context.Piece.Find(plan.IdPiece);
 
-            return Ok();
+            if (specifiedPiece == null || plan.Name == null || plan.IdPiece == null || plan.Time == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _context.Plan.Add(plan);
+                _context.SaveChanges();
+
+                return Ok();
+            }
         }
 
         // PUT api/plans/id
@@ -90,7 +99,9 @@ namespace AlphaParAPI.Controllers
         {
             // Delete the specified plan
             var specifiedPlan = _context.Plan.Find(id);
-            if (specifiedPlan == null)
+            var PlanExistsInCommand = _context.Command.Select(x => x.IdPlan == id).FirstOrDefault();
+
+            if (specifiedPlan == null || PlanExistsInCommand)
             {
                 return NotFound();
             }

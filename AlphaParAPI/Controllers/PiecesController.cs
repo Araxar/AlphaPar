@@ -25,7 +25,7 @@ namespace AlphaParAPI.Controllers
         public ActionResult<List<Piece>> GetPieces()
         {
             // Return the pieces list
-            return _context.Piece.ToList();
+            return _context.Piece.Include(x => x.ProductionChain).ToList();
         }
 
         // GET api/pieces/id
@@ -48,10 +48,18 @@ namespace AlphaParAPI.Controllers
         public ActionResult AddPiece([FromBody]Piece piece)
         {
             // Create the piece with all information
-            _context.Piece.Add(piece);
-            _context.SaveChanges();
+            var specifiedProductionChain = _context.Plan.Find(piece.IdProductionChain);
+            if (piece.Name == null || specifiedProductionChain == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _context.Piece.Add(piece);
+                _context.SaveChanges();
 
-            return Ok();
+                return Ok();
+            }
         }
 
         // PUT api/pieces/id
@@ -88,7 +96,9 @@ namespace AlphaParAPI.Controllers
         {
             // Delete the specified piece
             var specifiedPiece = _context.Piece.Find(id);
-            if (specifiedPiece == null)
+            var PieceExistsInPlan = _context.Plan.Select(x => x.IdPiece == id).FirstOrDefault();
+
+            if (specifiedPiece == null || PieceExistsInPlan)
             {
                 return NotFound();
             }

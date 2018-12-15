@@ -48,10 +48,17 @@ namespace AlphaParAPI.Controllers
         public ActionResult AddCustomer([FromBody]Customer customer)
         {
             // Create a customer with all information
-            _context.Customer.Add(customer);
-            _context.SaveChanges();
+            if (customer.Name == null || customer.Phone == null || customer.Siret == null || customer.Email == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _context.Customer.Add(customer);
+                _context.SaveChanges();
 
-            return Ok();
+                return Ok();
+            }
         }
 
         // PUT api/customers/id
@@ -90,7 +97,9 @@ namespace AlphaParAPI.Controllers
         {
             // Delete the specified customer
             var specifiedCustomer = _context.Customer.Find(id);
-            if (specifiedCustomer == null)
+            var custommerHasCommand = _context.Command.Select(x => x.IdCustomer == id).FirstOrDefault();
+            
+            if (specifiedCustomer == null || custommerHasCommand)
             {
                 return NotFound();
             }

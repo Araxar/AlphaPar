@@ -26,7 +26,7 @@ namespace AlphaParAPI.Controllers
         public ActionResult<List<Command>> GetCommands()
         {
             // Return the commands list
-            return _context.Command.ToList();
+            return _context.Command.Include(x => x.Customer).Include(x => x.Plan).ToList();
         }
 
         // GET api/commands/id
@@ -49,10 +49,20 @@ namespace AlphaParAPI.Controllers
         public ActionResult AddCommand([FromBody]Command command)
         {
             // Create a command with all information
-            _context.Command.Add(command);
-            _context.SaveChanges();
+            var specifiedPlan = _context.Plan.Find(command.IdPlan);
+            var specifiedCustomer = _context.Customer.Find(command.IdCustomer);
 
-            return Ok();
+            if (specifiedPlan == null || specifiedCustomer == null || command.IdCustomer == null || command.IdPlan == null || command.DeliveryDate == null)
+            {
+                return BadRequest();
+            }
+            else
+            {
+                _context.Command.Add(command);
+                _context.SaveChanges();
+
+                return Ok();
+            }
         }
 
         // PUT api/commands/id

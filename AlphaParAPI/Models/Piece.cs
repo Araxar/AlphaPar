@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AlphaParAPI.Models
 {
@@ -6,6 +8,8 @@ namespace AlphaParAPI.Models
     {
         public string Name { get; set; }
         public int Stock { get; set; }
-        public List<PieceProductionChain> PieceProductionChains { get; set; }
+        public string IdProductionChain { get; set; }
+        [ForeignKey("IdProductionChain")]
+        public ProductionChain ProductionChain { get; set; }
     }
 }
