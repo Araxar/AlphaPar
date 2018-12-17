@@ -21,10 +21,10 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" DockPanel.Dock="Top">
-            <MenuItem Header="Employés"/>
-            <MenuItem Header="Clients"/>
-            <MenuItem Header="Commandes"/>
-            <MenuItem Header="Chaine de production"/>
+            <MenuItem Header="Employés" Click="Menu_Emp_Click"/>
+            <MenuItem Header="Clients" Click="Menu_Cus_Click"/>
+            <MenuItem Header="Commandes" Click="Menu_Com_Click"/>
+            <MenuItem Header="Chaine de production" Click="Menu_Cha_Click"/>
         </Menu>
 
         <Label Grid.Row="1"  Style="{StaticResource headerTextStyle}" HorizontalAlignment="Center" >

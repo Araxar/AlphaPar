@@ -25,6 +25,8 @@ namespace AlphaParWindows
         {
             InitializeComponent();
             this.Title = $"Main Window - {System.Security.Principal.WindowsIdentity.GetCurrent().Name}";
+            Employees employees = new Employees();
+            this.NavigationService.Navigate(employees);
         }
         
     }

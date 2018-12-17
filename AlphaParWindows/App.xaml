@@ -12,7 +12,13 @@
             <Setter Property="Label.Foreground" Value="#0066cc"></Setter>
         </Style>
 
-
+        <Style x:Key="textBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Padding" Value="7,0,0,0" />
+            <Setter Property="Height" Value="14"/>
+        </Style>
 
         <!-- Label style -->
         <Style x:Key="labelStyle" TargetType="{x:Type Label}">

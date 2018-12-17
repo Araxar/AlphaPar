@@ -29,5 +29,28 @@ namespace AlphaParWindows
         {
 
         }
+
+
+        private void Menu_Emp_Click(object sender, RoutedEventArgs e)
+        {
+            Employees employees = new Employees();
+            this.NavigationService.Navigate(employees);
+        }
+
+        private void Menu_Cus_Click(object sender, RoutedEventArgs e)
+        {
+            Clients Clients = new Clients();
+            this.NavigationService.Navigate(Clients);
+        }
+        private void Menu_Com_Click(object sender, RoutedEventArgs e)
+        {
+            Command Command = new Command();
+            this.NavigationService.Navigate(Command);
+        }
+        private void Menu_Cha_Click(object sender, RoutedEventArgs e)
+        {
+            ProductionChains ProductionChains = new ProductionChains();
+            this.NavigationService.Navigate(ProductionChains);
+        }
     }
 }

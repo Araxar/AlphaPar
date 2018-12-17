@@ -21,10 +21,10 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" DockPanel.Dock="Top">
-            <MenuItem Header="Employés"/>
-            <MenuItem Header="Clients"/>
-            <MenuItem Header="Commandes"/>
-            <MenuItem Header="Chaine de production"/>
+            <MenuItem Header="Employés" Click="Menu_Emp_Click"/>
+            <MenuItem Header="Clients" Click="Menu_Cus_Click"/>
+            <MenuItem Header="Commandes" Click="Menu_Com_Click"/>
+            <MenuItem Header="Chaine de production" Click="Menu_Cha_Click"/>
         </Menu>
 
         <Label Grid.Row="1"  Style="{StaticResource headerTextStyle}" HorizontalAlignment="Center" >
@@ -50,6 +50,13 @@
             <TextBlock  Grid.Row="2" Text="Téléphone :" Style="{StaticResource textblockStyle}"></TextBlock>
             <TextBlock  Grid.Row="3" Text="Email : " Style="{StaticResource textblockStyle}"></TextBlock>
             <TextBlock  Grid.Row="4" Text="DoB : " Style="{StaticResource textblockStyle}"></TextBlock>
+
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding employee.Name}" Style="{StaticResource textBoxStyle}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding employee.Surname}" Style="{StaticResource textBoxStyle}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding employee.Phone}" Style="{StaticResource textBoxStyle}" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding employee.Email}" Style="{StaticResource textBoxStyle}" />
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding employee.DateOfBirth}" Style="{StaticResource textBoxStyle}" />
+
             <Button Grid.Row="5" Grid.Column="2" Width="50" Height="17" VerticalAlignment="Center" Click="Update_Click" 
                     HorizontalAlignment="Right">
                 Modifier</Button>

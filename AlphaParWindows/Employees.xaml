@@ -20,10 +20,10 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" DockPanel.Dock="Top">
-            <MenuItem Header="Employés"/>
-            <MenuItem Header="Clients"/>
-            <MenuItem Header="Commandes"/>
-            <MenuItem Header="Chaine de production"/>
+            <MenuItem Header="Employés" Click="Menu_Emp_Click"/>
+            <MenuItem Header="Clients" Click="Menu_Cus_Click"/>
+            <MenuItem Header="Commandes" Click="Menu_Com_Click"/>
+            <MenuItem Header="Chaine de production" Click="Menu_Cha_Click"/>
         </Menu>
 
         <Label x:Name="datagridlabel" Margin="0 0 0 0"  Grid.Row="1"  Style="{StaticResource headerTextStyle}" HorizontalAlignment="Center" >
@@ -46,29 +46,27 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <DataGrid x:Name="datagrid" Grid.Row="3" Grid.Column="0" ItemsSource="{Binding XPath=Expense}" ColumnHeaderStyle="{StaticResource columnHeaderStyle}" 
-                  AutoGenerateColumns="False" RowHeaderWidth="0" CanUserAddRows="True" CanUserDeleteRows="True" CanUserReorderColumns="False"
-                  CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="True">
+        <DataGrid x:Name="datagrid" Grid.Row="3" Grid.Column="0" ColumnHeaderStyle="{StaticResource columnHeaderStyle}" 
+                  AutoGenerateColumns="False" RowHeaderWidth="0" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                  CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="True" ColumnWidth="*">
 
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Name" IsReadOnly="True">
+                <DataGridTextColumn Header="Name" IsReadOnly="True" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Surname"  IsReadOnly="True" Binding="{Binding Surname}"/>
+                <DataGridTextColumn Header="Phone"  IsReadOnly="True" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="Email"  IsReadOnly="True" Binding="{Binding Email}"/>
+                <!--<DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
+                            <Button Name="btnDelete" Content="Delete" Click="btnDelete_Click" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Surname" IsReadOnly="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Phone" IsReadOnly="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                </DataGridTemplateColumn>-->
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
