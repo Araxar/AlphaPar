@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AlphaParAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AlphaParAPI.Controllers
 {
@@ -10,6 +12,14 @@ namespace AlphaParAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly ModelContext _context;
+
+        public ValuesController(ModelContext context)
+        {
+            _context = context;
+        }
+
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -21,6 +31,7 @@ namespace AlphaParAPI.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
+
             return "value";
         }
 
