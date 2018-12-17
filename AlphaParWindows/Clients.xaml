@@ -1,0 +1,72 @@
+﻿<Page x:Class="AlphaParWindows.Clients"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AlphaParWindows"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="Clients">
+
+    <Grid Margin="10 0 10 10">
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="50"/>
+            <RowDefinition  Height="50"/>
+            <RowDefinition  Height="50"/>
+            <RowDefinition  />
+        </Grid.RowDefinitions>
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Employés"/>
+            <MenuItem Header="Clients"/>
+            <MenuItem Header="Commandes"/>
+            <MenuItem Header="Chaine de production"/>
+        </Menu>
+
+        <Label x:Name="datagridlabel" Margin="0 20 0 0"  Grid.Row="0"  Style="{StaticResource headerTextStyle}" HorizontalAlignment="Center" >
+            Liste des clients
+        </Label>
+
+        <TextBox x:Name="searchbar" Grid.Row="1" Height="20" HorizontalAlignment="Left" KeyUp="Searchbar_KeyUp" VerticalContentAlignment="Center" 
+                 Width="170" Margin="0 20 0 3" Padding="7 0 0 0"/>
+        <TextBlock Grid.Row="1"  IsHitTestVisible="False" Text="Recherche par nom" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                   Margin="10,20,0,3" Foreground="DarkGray" >
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=searchbar}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        
+       
+        <DataGrid x:Name="datagrid" Grid.Row="2" Grid.Column="0" ItemsSource="{Binding XPath=Expense}" ColumnHeaderStyle="{StaticResource columnHeaderStyle}" 
+                  AutoGenerateColumns="False" RowHeaderWidth="0" CanUserAddRows="True" CanUserDeleteRows="True" CanUserReorderColumns="False"
+                  CanUserResizeColumns="False" CanUserResizeRows="False" CanUserSortColumns="True">
+
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Name" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Siret" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Page>
