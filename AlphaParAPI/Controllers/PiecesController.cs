@@ -67,7 +67,7 @@ namespace AlphaParAPI.Controllers
                 return Forbid();
             }
             // Create the piece with all information
-            var specifiedProductionChain = _context.Plan.Find(piece.IdProductionChain);
+            var specifiedProductionChain = _context.ProductionChain.Find(piece.IdProductionChain);
             if (piece.Name == null || specifiedProductionChain == null)
             {
                 return BadRequest();
@@ -107,6 +107,7 @@ namespace AlphaParAPI.Controllers
             {
                 specifiedPiece.Name = piece.Name;
                 specifiedPiece.Stock = piece.Stock;
+                specifiedPiece.IdProductionChain = piece.IdProductionChain;
             }
 
             _context.Piece.Update(specifiedPiece);

@@ -81,7 +81,7 @@ namespace AlphaParAPI.Controllers
         }
 
         // PUT api/productionChain/ids
-        [HttpPut("{ids}")]
+        [HttpPut("{id}")]
         public IActionResult ModifyProductionChain(string id, [FromBody]ProductionChain productionChain)
         {
             Log.Warning($"Request to ModifyProductionChain {productionChain.Id} by authentified user {HttpContext.User.Identity.Name}");

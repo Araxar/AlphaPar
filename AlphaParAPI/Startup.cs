@@ -29,6 +29,14 @@ namespace AlphaParAPI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("https://localhost:44335")
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader());
+            });
+          
             services.Configure<IISOptions>(options =>
             {
                 options.AutomaticAuthentication = true;
@@ -43,7 +51,6 @@ namespace AlphaParAPI
 
             services.AddDbContext<ModelContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AlphaParDatabase")));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,10 +65,9 @@ namespace AlphaParAPI
             {
                 app.UseHsts();
             }
-
+            app.UseCors("AllowSpecificOrigin");
             app.UseHttpsRedirection();
             app.UseAuthentication();
-            //app.UseCookiePolicy();
             app.UseMvc();
         }
     }
