@@ -17,10 +17,12 @@ namespace AlphaParAPI
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseSerilog()
-                .UseIISIntegration()
-                .Build();
+            .UseKestrel()
+            .UseContentRoot(Directory.GetCurrentDirectory())
+            .UseStartup<Startup>()
+            .UseSerilog()
+            .UseIISIntegration()
+            .Build();
 
         public static void Main(string[] args)
         {
