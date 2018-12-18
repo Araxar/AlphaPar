@@ -59,7 +59,7 @@ namespace AlphaParAPI
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             //app.UseAuthentication();
             //app.UseCookiePolicy();
             app.UseMvc();
