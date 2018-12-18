@@ -23,7 +23,7 @@ namespace AlphaParAPI.Controllers
 
         // GET: api/productionChain
         [HttpGet("", Name = "GetProductionChains")]
-        public IEnumerable<ProductionChain> GetProductionChains()
+        public ActionResult<IEnumerable<ProductionChain>> GetProductionChains()
         {
             Log.Warning($"Request to GetProductionChains by authentified user {HttpContext.User.Identity.Name}");
             Utils.GetClientMac(this.HttpContext);
