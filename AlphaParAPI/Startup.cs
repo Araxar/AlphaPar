@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,19 +28,12 @@ namespace AlphaParAPI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.Configure<IISOptions>(options =>
-            {
-                options.AutomaticAuthentication = true;
-            });
-
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-            services.AddAuthentication(IISDefaults.AuthenticationScheme);
-           // services.AddAuthentication().AddMicrosoftAccount();
-
-            services.AddDbContext<ModelContext>(options =>
+            services.AddAuthentication().AddMicrosoftAccount();
+            
+            services.AddDbContext<ModelContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("AlphaParDatabase")));
 
         }
@@ -59,9 +51,8 @@ namespace AlphaParAPI
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
-            //app.UseAuthentication();
-            //app.UseCookiePolicy();
+            app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
