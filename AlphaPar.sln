@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaParAPI", "AlphaParAPI\AlphaParAPI.csproj", "{36294300-D551-41B2-A012-113D38699163}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlphaParAPI", "AlphaParAPI\AlphaParAPI.csproj", "{36294300-D551-41B2-A012-113D38699163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaParLinux", "AlphaParLinux\AlphaParLinux.csproj", "{3DCBD2C6-EE0B-4718-B8C5-645BF38A36F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlphaParLinux", "AlphaParLinux\AlphaParLinux.csproj", "{3DCBD2C6-EE0B-4718-B8C5-645BF38A36F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaParWindows", "AlphaParWindows\AlphaParWindows.csproj", "{E2C6BD73-13BC-467B-BED0-BCBEE8C9D2EC}"
 EndProject

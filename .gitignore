@@ -259,4 +259,7 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+
 /AlphaParAPI/Model/Class1.cs
+/AlphaParAPI/AlphaParLog-2018121416.txt
+/AlphaParAPI/Logs
