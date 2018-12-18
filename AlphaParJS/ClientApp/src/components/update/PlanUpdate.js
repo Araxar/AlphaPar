@@ -1,9 +1,8 @@
 ﻿import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './Pages.css';
 
-export class Plans extends Component {
-    displayName = Plans.name
+
+export class PlanUpdate extends Component {
+    displayName = PlanUpdate.name
 
     constructor(props) {
         super(props);
@@ -13,41 +12,24 @@ export class Plans extends Component {
 
         this.state = {
             targetUrl: 'http://localhost:64156/api/plans/',
+            redirectUrl: 'https://localhost:44335/plans/',
+            currentPlan: [{
+                name: '',
+                id: '',
+                time: '',
+                idPiece: ''
+            }],
             name: '',
             time: '',
-            idPiece: '',
-            data: [{
-                name: String,
-                time: String,
-                idPiece: String,
-                piece: {
-                    name: String,
-                    stock: Int32Array,
-                    idProductionChain: String,
-                    productionChain: {
-                        name: String,
-                    }
-                }
-            }]
+            idPiece: ''
         };
-    }
-
-    handleClick = idPlan => {
-        const requestOptions = {
-            method: 'DELETE'
-        };
-
-        fetch(this.state.targetUrl + idPlan, requestOptions);
-
-        window.location.reload();
     }
 
     componentDidMount() {
-        fetch(this.state.targetUrl)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ data });
-            });
+        this.setState({ currentPlan: this.props.location.state.currentItem });
+        this.setState({ name: this.props.location.state.currentItem.name });
+        this.setState({ time: this.props.location.state.currentItem.time });
+        this.setState({ idPiece: this.props.location.state.currentItem.idPiece });
     }
 
     handleChange(event) {
@@ -61,69 +43,34 @@ export class Plans extends Component {
     }
 
     handleSubmit(event) {
-        this.addPlan();
+        this.updatePlan(this.state.name, this.state.time, this.state.idPiece, this.state.currentPlan.id);
         event.preventDefault();
     }
 
-    addPlan() {
-        fetch(this.state.targetUrl, {
-            method: 'POST',
+    updatePlan = (name, time, idPiece, planId) => {
+        console.log(planId);
+        fetch(this.state.targetUrl + planId, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                name: this.state.name,
-                time: this.state.time,
-                idPiece: this.state.idPiece,
+                name: name,
+                time: time,
+                idPiece: idPiece
             })
         });
-        window.location.reload();
+        window.location.href = this.state.redirectUrl;
     }
 
     render() {
-        const { data } = this.state;
         return (
             <div>
-                <h1>Plans</h1>
+                <h1>Modification des plans</h1>
                 <br />
                 <br />
-                <p>Bienvenue sur la page de gestion des plans. D'ici vous pouvez ajouter, supprimer ou modifier des plans et accéder à la liste complête de ceux-ci.</p>
+                <p>Bienvenue sur la page de modification des plans.</p>
                 <br />
-                <table>
-                    <tr>
-                        <th>
-                            Nom du plan
-                        </th>
-                        <th>
-                            Temps de production
-                        </th>
-                        <th>
-                            N° de la pièce associée
-                        </th>
-                        <th>
-                            Nom de la pièce associée
-                        </th>
-                        <th>
-                            Modification
-                        </th>
-                        <th>
-                            Suppression
-                        </th>
-                    </tr>
-                    {data.map(item => {
-                        return <tr key={item.id}>
-                            <td>{item.name}</td>
-                            <td>{item.time}</td>
-                            <td>{item.idPiece}</td>
-                            <td>{item.piece.name}</td>
-                            <td><Link to={{ pathname: '/update/plan', state: { currentItem: item } }}><button>Modifier</button></Link></td>
-                            <td><button onClick={() => { this.handleClick(item.id) }}>Supprimer</button></td>
-                        </tr>
-                    }
-                    )}
-                </table>
-                <br />
-
                 <form className="form" onSubmit={this.handleSubmit}>
                     <div className="field">
                         <label>Nom du plan</label>
@@ -152,7 +99,7 @@ export class Plans extends Component {
                     </div>
                     <br />
                     <div className="field">
-                        <label>N° de la pi&#232;ce associ&#233;e</label>
+                        <label>N° de la pièce associée</label>
                         <div className="control">
                             <input
                                 className="input"
@@ -168,7 +115,7 @@ export class Plans extends Component {
                         <div className="control">
                             <input
                                 type="submit"
-                                value="Ajouter un plan"
+                                value="Modifier le plan"
                                 className="button is-primary"
                             />
                         </div>

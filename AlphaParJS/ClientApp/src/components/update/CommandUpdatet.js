@@ -1,9 +1,8 @@
 ﻿import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './Pages.css';
 
-export class Commands extends Component {
-    displayName = Commands.name
+
+export class CommandUpdate extends Component {
+    displayName = CommandUpdate.name
 
     constructor(props) {
         super(props);
@@ -13,50 +12,27 @@ export class Commands extends Component {
 
         this.state = {
             targetUrl: 'http://localhost:64156/api/commands/',
+            redirectUrl: 'https://localhost:44335/commands/',
+            currentCommand: [{
+                id: '',
+                idCustomer: '',
+                idPlan: '',
+                planAmount: '',
+                deliveryDate: ''
+            }],
             idCustomer: '',
             idPlan: '',
-            planAmount: 0,
-            deliveryDate: '',
-            data: [{
-                customer: {
-                    name: String,
-                    siret: String,
-                    phone: String,
-                    email: String
-                },
-                plan: {
-                    name: String,
-                    time: String,
-                    piece: {
-                        name: String,
-                        stock: Int32Array,
-                        productionChain: {
-                            name: String
-                        }
-                    }
-                },
-                planAmount: Int32Array,
-                deliveryDate: String
-            }]
+            planAmount: '',
+            deliveryDate: ''
         };
-    }
-
-    handleClick = idCommand => {
-        const requestOptions = {
-            method: 'DELETE'
-        };
-
-        fetch(this.state.targetUrl + idCommand, requestOptions);
-
-        window.location.reload();
     }
 
     componentDidMount() {
-        fetch(this.state.targetUrl)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ data });
-            });
+        this.setState({ currentCommand: this.props.location.state.currentItem });
+        this.setState({ idCustomer: this.props.location.state.currentItem.idCustomer });
+        this.setState({ idPlan: this.props.location.state.currentItem.idPlan });
+        this.setState({ planAmount: this.props.location.state.currentItem.planAmount });
+        this.setState({ deliveryDate: this.props.location.state.currentItem.deliveryDate });
     }
 
     handleChange(event) {
@@ -70,70 +46,35 @@ export class Commands extends Component {
     }
 
     handleSubmit(event) {
-        this.addCommand();
+        this.updateCommand(this.state.idCustomer, this.state.idPlan, this.state.planAmount, this.state.deliveryDate, this.state.currentCommand.id);
         event.preventDefault();
     }
 
-    addCommand() {
-        fetch(this.state.targetUrl, {
-            method: 'POST',
+    updateCommand = (idCustomer, idPlan, planAmount, deliveryDate, commandId) => {
+        console.log(commandId);
+        fetch(this.state.targetUrl + commandId, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                idCustomer: this.state.idCustomer,
-                idPlan: this.state.idPlan,
-                planAmount: this.state.planAmount,
-                deliveryDate: this.state.deliveryDate,
+                idCustomer: idCustomer,
+                idPlan: idPlan,
+                planAmount: planAmount,
+                deliveryDate: deliveryDate
             })
         });
-        window.location.reload();
+        window.location.href = this.state.redirectUrl;
     }
 
     render() {
-        const { data } = this.state;
         return (
             <div>
-                <h1>Commandes</h1>
+                <h1>Modification des clients</h1>
                 <br />
                 <br />
-                <p>Bienvenue sur la page de gestion des commandes. D'ici vous pouvez ajouter, supprimer ou modifier des commandes et accéder à la liste complête de celles-ci.</p>
+                <p>Bienvenue sur la page de modification des commandes.</p>
                 <br />
-                <table>
-                    <tr>
-                        <th>
-                            Nom du client
-                        </th>
-                        <th>
-                            Plan commandé
-                        </th>
-                        <th>
-                            Co&#251;t du plan
-                        </th>
-                        <th>
-                            Date de livraison
-                        </th>
-                        <th>
-                            Modification
-                        </th>
-                        <th>
-                            Suppression
-                        </th>
-                    </tr>
-                    {data.map(item => {
-                        return <tr key={item.id}>
-                            <td>{item.customer.name}</td>
-                            <td>{item.plan.name}</td>
-                            <td>{item.planAmount}</td>
-                            <td>{item.deliveryDate}</td>
-                            <td><Link to={{ pathname: '/update/command', state: { currentItem: item } }}><button>Modifier</button></Link></td>
-                            <td><button onClick={() => { this.handleClick(item.id) }}>Supprimer</button></td>
-                        </tr>
-                    }
-                    )}
-                </table>
-                <br />
-
                 <form className="form" onSubmit={this.handleSubmit}>
                     <div className="field">
                         <label>Id du client</label>
@@ -149,7 +90,7 @@ export class Commands extends Component {
                     </div>
                     <br />
                     <div className="field">
-                        <label>Id du plan commandé</label>
+                        <label>Id du plan</label>
                         <div className="control">
                             <input
                                 className="input"
@@ -191,7 +132,7 @@ export class Commands extends Component {
                         <div className="control">
                             <input
                                 type="submit"
-                                value="Ajouter une commande"
+                                value="Modifier la commande"
                                 className="button is-primary"
                             />
                         </div>

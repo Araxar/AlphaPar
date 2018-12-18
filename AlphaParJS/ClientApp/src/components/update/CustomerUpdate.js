@@ -1,9 +1,8 @@
 ﻿import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import './Pages.css';
 
-export class Customers extends Component {
-    displayName = Customers.name
+
+export class CustomerUpdate extends Component {
+    displayName = CustomerUpdate.name
 
     constructor(props) {
         super(props);
@@ -13,18 +12,27 @@ export class Customers extends Component {
 
         this.state = {
             targetUrl: 'http://localhost:64156/api/customers/',
+            redirectUrl: 'https://localhost:44335/customers/',
+            currentCustomer: [{
+                email: '',
+                id: '',
+                name: '',
+                phone: '',
+                siret: ''
+            }],
             name: '',
             siret: '',
             phone: '',
-            email: '',
-            data: [{
-                name: String,
-                surname: String,
-                dateOfBirth: String,
-                phone: String,
-                email: String
-            }]
+            email: ''
         };
+    }
+
+    componentDidMount() {
+        this.setState({ currentCustomer: this.props.location.state.currentItem });
+        this.setState({ name: this.props.location.state.currentItem.name });
+        this.setState({ siret: this.props.location.state.currentItem.siret });
+        this.setState({ phone: this.props.location.state.currentItem.phone });
+        this.setState({ email: this.props.location.state.currentItem.email });
     }
 
     handleChange(event) {
@@ -38,89 +46,35 @@ export class Customers extends Component {
     }
 
     handleSubmit(event) {
-        this.addCustomer();
+        this.updateCustomer(this.state.name, this.state.siret, this.state.phone, this.state.email, this.state.currentCustomer.id);
         event.preventDefault();
     }
 
-    handleClick = idCustomer => {
-        const requestOptions = {
-            method: 'DELETE'
-        };
-
-        fetch(this.state.targetUrl + idCustomer, requestOptions);
-
-        window.location.reload();
-    }
-
-    componentDidMount() {
-        fetch(this.state.targetUrl)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                this.setState({ data });
-            });
-    }
-
-    addCustomer() {
-        fetch(this.state.targetUrl, {
-            method: 'POST',
+    updateCustomer = (name, siret, phone, email, customerId) => {
+        console.log(customerId);
+        fetch(this.state.targetUrl + customerId, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                name: this.state.name,
-                siret: this.state.siret,
-                phone: this.state.phone,
-                email: this.state.email,
+                name: name,
+                siret: siret,
+                phone: phone,
+                email: email
             })
         });
-        window.location.reload();
+        window.location.href = this.state.redirectUrl;
     }
 
     render() {
-        const { data } = this.state;
         return (
             <div>
-                <h1>Clients</h1>
+                <h1>Modification des clients</h1>
                 <br />
                 <br />
-                <p>Bienvenue sur la page de gestion des clients. D'ici vous pouvez ajouter, supprimer ou modifier des clients et accéder à la liste complête de ceux-ci.</p>
+                <p>Bienvenue sur la page de modification des clients.</p>
                 <br />
-                <table>
-                    <tr>
-                        <th>
-                            Nom du client
-                            </th>
-                        <th>
-                            Siret
-                            </th>
-                        <th>
-                            Téléphone
-                            </th>
-                        <th>
-                            Email
-                            </th>
-                        <th>
-                            Modification
-                            </th>
-                        <th>
-                            Suppression
-                            </th>
-                    </tr>
-                    {data.map(item => {
-                        return <tr key={item.id}>
-                            <td>{item.name}</td>
-                            <td>{item.siret}</td>
-                            <td>{item.phone}</td>
-                            <td>{item.email}</td>
-                            <td><Link to={{ pathname: '/update/customer', state: { currentItem: item } }}><button>Modifier</button></Link></td>
-                            <td><button onClick={() => { this.handleClick(item.id) }}>Supprimer</button></td>
-                        </tr>
-                    }
-                    )}
-                </table>
-                <br />
-
                 <form className="form" onSubmit={this.handleSubmit}>
                     <div className="field">
                         <label>Nom de l'entreprise</label>
@@ -178,7 +132,7 @@ export class Customers extends Component {
                         <div className="control">
                             <input
                                 type="submit"
-                                value="Ajouter un client"
+                                value="Modifier le client"
                                 className="button is-primary"
                             />
                         </div>

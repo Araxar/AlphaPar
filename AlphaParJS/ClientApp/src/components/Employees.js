@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import './Pages.css';
 
 export class Employees extends Component {
     displayName = Employees.name
@@ -7,30 +8,64 @@ export class Employees extends Component {
         super(props);
 
         this.state = {
-            data: null,
+            data: [{
+                name: String,
+                surname: String,
+                dateOfBirth: String,
+                phone: String,
+                email: String
+            }]
         };
     }
 
     componentDidMount() {
-        fetch('https://localhost:44347/api/employees')
+        var targetUrl = 'http://localhost:64156/api/employees';
+        fetch(targetUrl)
             .then(response => response.json())
-            .then(data => this.setState({ data }));
+            .then(data => {
+                console.log(data);
+                this.setState({ data });
+            });
     }
 
     render() {
+        const { data } = this.state;
         return (
             <div>
                 <h1>Employ&#233;s</h1>
                 <br />
                 <br />
-                <p>Bienvenue sur la page d'accueil de votre ERP. D'ici vous pouvez avoir acc&#232;s aux diff&#233;rentes pages de gestion.</p>
+                <p>Bienvenue sur la page de gestion des employés. D'ici vous pouvez ajouter, supprimer ou modifier des employés et accéder à la liste complête de ceux-ci.</p>
                 <br />
-                <p>Voici toutes les pages que vous pouvez g&#233;rer :</p>
-                {data.hits.map(hit =>
-                    <li key={hit.objectID}>
-                        <a href={hit.url}>{hit.title}</a>
-                    </li>
-                )}
+                <table>
+                    <tr>
+                        <th>
+                            Pr&#233;nom
+                        </th>
+                        <th>
+                            Nom
+                        </th>
+                        <th>
+                            Date de naissance
+                        </th>
+                        <th>
+                            Téléphone
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                    </tr>
+                        {data.map(item => {
+                        return <tr key={item.id}>
+                            <td>{item.name}</td>
+                            <td>{item.surname}</td>
+                            <td>{item.dateOfBirth}</td>
+                            <td>{item.phone}</td>
+                            <td>{item.email}</td>
+                        </tr>
+                        }
+                        )}
+                </table>
             </div>
         );
     }

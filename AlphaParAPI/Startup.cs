@@ -28,13 +28,19 @@ namespace AlphaParAPI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("https://localhost:44335").AllowAnyMethod().AllowAnyHeader());
+            });
+
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAuthentication().AddMicrosoftAccount();
             
             services.AddDbContext<ModelContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("AlphaParDatabase")));
+                options.UseSqlServer(Configuration.GetConnectionString("AlphaParDatabaseG")));
 
         }
 
@@ -50,9 +56,9 @@ namespace AlphaParAPI
             {
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
+            app.UseCors("AllowSpecificOrigin");
+            //app.UseHttpsRedirection();
+            //app.UseAuthentication();
             app.UseMvc();
         }
     }

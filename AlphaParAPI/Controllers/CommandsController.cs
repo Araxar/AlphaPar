@@ -26,7 +26,7 @@ namespace AlphaParAPI.Controllers
         public ActionResult<List<Command>> GetCommands()
         {
             // Return the commands list
-            return _context.Command.Include(x => x.Customer).Include(x => x.Plan).ToList();
+            return _context.Command.Include(x => x.Customer).Include(y => y.Plan).ThenInclude(z => z.Piece).ThenInclude(w => w.ProductionChain).ToList();
         }
 
         // GET api/commands/id

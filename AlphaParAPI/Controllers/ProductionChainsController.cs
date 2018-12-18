@@ -62,7 +62,7 @@ namespace AlphaParAPI.Controllers
         }
 
         // PUT api/productionChain/ids
-        [HttpPut("{ids}")]
+        [HttpPut("{id}")]
         public IActionResult ModifyProductionChain(string id, [FromBody]ProductionChain productionChain)
         {
             // Update the specified production chain

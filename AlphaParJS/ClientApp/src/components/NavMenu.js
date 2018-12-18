@@ -25,32 +25,32 @@ export class NavMenu extends Component {
             </LinkContainer>
             <LinkContainer to={'/employees'}>
               <NavItem>
-                <Glyphicon glyph='education' /> Employ&#233;s
+                <Glyphicon glyph='user' /> Employ&#233;s
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/customers'}>
               <NavItem>
-                <Glyphicon glyph='th-list' /> Clients
+                <Glyphicon glyph='briefcase' /> Clients
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/productionchain'}>
               <NavItem>
-                <Glyphicon glyph='th-list' /> Chaine de production
+                <Glyphicon glyph='wrench' /> Chaine de production
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/plans'}>
               <NavItem>
-                <Glyphicon glyph='th-list' /> Plans
+                <Glyphicon glyph='list-alt' /> Plans
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/pieces'}>
               <NavItem>
-                <Glyphicon glyph='th-list' /> Pi&#232;ces
+                <Glyphicon glyph='tag' /> Pi&#232;ces
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/commands'}>
               <NavItem>
-                <Glyphicon glyph='th-list' /> Commandes
+                <Glyphicon glyph='credit-card' /> Commandes
               </NavItem>
             </LinkContainer>
           </Nav>
