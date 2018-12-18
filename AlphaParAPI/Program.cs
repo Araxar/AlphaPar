@@ -19,19 +19,18 @@ namespace AlphaParAPI
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseSerilog()
-                .UseKestrel()
+                .UseIISIntegration()
                 .Build();
 
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Information()
+                .MinimumLevel.Warning()
                 .ReadFrom.Configuration(Configuration)
-                .Enrich.WithProperty("ApplicationName", "AlphaParAPI")
                 .WriteTo.Console()
                 .WriteTo.MSSqlServer(Configuration.GetConnectionString("AlphaParLog"), "LogSecu", autoCreateSqlTable: true)
-                .WriteTo.File("AlphaParLog-.txt",
-                    outputTemplate: "{Timestamp: yyyy-MM-dd HH:mm:ss} [{Level:u3}] ({ApplicationName}) {Message:lj}{NewLine}{Properties:j}",
+                .WriteTo.File("Logs/AlphaParLog-.txt",
+                    outputTemplate: "{Timestamp: yyyy-MM-dd HH:mm:ss} {Message:lj}{NewLine}{Properties:j}",
                     rollingInterval: RollingInterval.Hour)
                 .CreateLogger();
 
