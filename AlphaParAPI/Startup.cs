@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,21 +32,29 @@ namespace AlphaParAPI
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("https://localhost:44335").AllowAnyMethod().AllowAnyHeader());
+                    builder => builder.WithOrigins("https://localhost:44335")
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader());
+            });
+          
+            services.Configure<IISOptions>(options =>
+            {
+                options.AutomaticAuthentication = true;
             });
 
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddAuthentication().AddMicrosoftAccount();
-            
-            services.AddDbContext<ModelContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("AlphaParDatabaseG")));
 
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            // services.AddAuthentication().AddMicrosoftAccount();
+
+            services.AddDbContext<ModelContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AlphaParDatabase")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, 
+        public void Configure(IApplicationBuilder app,
                                 IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -57,8 +66,8 @@ namespace AlphaParAPI
                 app.UseHsts();
             }
             app.UseCors("AllowSpecificOrigin");
-            //app.UseHttpsRedirection();
-            //app.UseAuthentication();
+            app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

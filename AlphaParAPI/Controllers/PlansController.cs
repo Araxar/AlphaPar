@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AlphaParAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,6 +25,12 @@ namespace AlphaParAPI.Controllers
         [HttpGet("", Name = "GetPlans")]
         public ActionResult<List<Plan>> GetPlans()
         {
+            Log.Warning($"Request to GetPlans by authentified user {HttpContext.User.Identity.Name}");
+            Utils.GetClientMac(this.HttpContext);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
             // Return the plans list
             return _context.Plan.Include(x => x.Piece).ThenInclude(x => x.ProductionChain).ToList();
         }
@@ -32,6 +39,12 @@ namespace AlphaParAPI.Controllers
         [HttpGet("{id}", Name = "GetPlan")]
         public ActionResult<Plan> GetPlan(string id)
         {
+            Log.Warning($"Request to GetPlan {id} by authentified user {HttpContext.User.Identity.Name}");
+            Utils.GetClientMac(this.HttpContext);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
             // Return the specified plan
             var specifiedPlan = _context.Plan.Find(id);
 
@@ -47,6 +60,12 @@ namespace AlphaParAPI.Controllers
         [HttpPost]
         public ActionResult AddPlan([FromBody]Plan plan)
         {
+            Log.Warning($"Request to AddPlan {plan.Id} by authentified user {HttpContext.User.Identity.Name}");
+            Utils.GetClientMac(this.HttpContext);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
             // Create the plan with all information
             var specifiedPiece = _context.Piece.Find(plan.IdPiece);
 
@@ -67,6 +86,12 @@ namespace AlphaParAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult ModifyPlan(string id, [FromBody]Plan plan)
         {
+            Log.Warning($"Request to ModifyPlan {plan.Id} by authentified user {HttpContext.User.Identity.Name}");
+            Utils.GetClientMac(this.HttpContext);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
             // Update the specified plan
             var specifiedPlan = _context.Plan.Find(id);
             if (specifiedPlan == null)
@@ -97,6 +122,12 @@ namespace AlphaParAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeletePlan(string id)
         {
+            Log.Warning($"Request to DeletePlan {id} by authentified user {HttpContext.User.Identity.Name}");
+            Utils.GetClientMac(this.HttpContext);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
             // Delete the specified plan
             var specifiedPlan = _context.Plan.Find(id);
             var PlanExistsInCommand = _context.Command.Select(x => x.IdPlan == id).FirstOrDefault();

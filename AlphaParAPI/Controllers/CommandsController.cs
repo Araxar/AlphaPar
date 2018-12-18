@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AlphaParAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,6 +26,12 @@ namespace AlphaParAPI.Controllers
         [HttpGet("", Name = "GetCommands")]
         public ActionResult<List<Command>> GetCommands()
         {
+            Log.Warning($"Request to GetCommands by authentified user {HttpContext.User.Identity.Name}");
+            Utils.GetClientMac(this.HttpContext);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
             // Return the commands list
             return _context.Command.Include(x => x.Customer).Include(y => y.Plan).ThenInclude(z => z.Piece).ThenInclude(w => w.ProductionChain).ToList();
         }
@@ -33,6 +40,12 @@ namespace AlphaParAPI.Controllers
         [HttpGet("{id}", Name = "GetCommand")]
         public ActionResult<Command> GetCommand(string id)
         {
+            Log.Warning($"Request to GetCommand {id} by authentified user {HttpContext.User.Identity.Name}");
+            Utils.GetClientMac(this.HttpContext);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
             // Return the specified command
             var specifiedCommand = _context.Command.Find(id);
 
@@ -48,6 +61,12 @@ namespace AlphaParAPI.Controllers
         [HttpPost]
         public ActionResult AddCommand([FromBody]Command command)
         {
+            Log.Warning($"Request to AddCommand {command.Id} by authentified user {HttpContext.User.Identity.Name}");
+            Utils.GetClientMac(this.HttpContext);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
             // Create a command with all information
             var specifiedPlan = _context.Plan.Find(command.IdPlan);
             var specifiedCustomer = _context.Customer.Find(command.IdCustomer);
@@ -69,6 +88,12 @@ namespace AlphaParAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult ModifyCommand(string id, [FromBody]Command command)
         {
+            Log.Warning($"Request to ModifyCommand {command.Id} by authentified user {HttpContext.User.Identity.Name}");
+            Utils.GetClientMac(this.HttpContext);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
             // Update the specified command
             var specifiedCommand = _context.Command.Find(id);
             if (specifiedCommand == null)
@@ -101,6 +126,12 @@ namespace AlphaParAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteCommand(string id)
         {
+            Log.Warning($"Request to DeleteCommand {id} by authentified user {HttpContext.User.Identity.Name}");
+            Utils.GetClientMac(this.HttpContext);
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Forbid();
+            }
             // Delete the specified command
             var specifiedCommand = _context.Command.Find(id);
             if (specifiedCommand == null)
