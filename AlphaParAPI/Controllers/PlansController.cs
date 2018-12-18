@@ -32,7 +32,7 @@ namespace AlphaParAPI.Controllers
                 return Forbid();
             }
             // Return the plans list
-            return _context.Plan.ToList();
+            return _context.Plan.Include(x => x.Piece).ThenInclude(x => x.ProductionChain).ToList();
         }
 
         // GET api/plans/id

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlphaParLinux", "AlphaParLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaParWindows", "AlphaParWindows\AlphaParWindows.csproj", "{E2C6BD73-13BC-467B-BED0-BCBEE8C9D2EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaParJS", "AlphaParJS\AlphaParJS.csproj", "{2AC8DA13-16A6-4C8D-A241-441360BC49FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E2C6BD73-13BC-467B-BED0-BCBEE8C9D2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2C6BD73-13BC-467B-BED0-BCBEE8C9D2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2C6BD73-13BC-467B-BED0-BCBEE8C9D2EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AC8DA13-16A6-4C8D-A241-441360BC49FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AC8DA13-16A6-4C8D-A241-441360BC49FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AC8DA13-16A6-4C8D-A241-441360BC49FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AC8DA13-16A6-4C8D-A241-441360BC49FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
