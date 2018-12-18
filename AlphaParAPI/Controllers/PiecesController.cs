@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AlphaParAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,12 +24,6 @@ namespace AlphaParAPI.Controllers
         [HttpGet("", Name = "GetPieces")]
         public ActionResult<List<Piece>> GetPieces()
         {
-            Log.Warning($"Request to GetPieces by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Forbid();
-            }
             // Return the pieces list
             return _context.Piece.Include(x => x.ProductionChain).ToList();
         }
@@ -39,12 +32,6 @@ namespace AlphaParAPI.Controllers
         [HttpGet("{id}", Name = "GetPiece")]
         public ActionResult<Piece> GetPiece(string id)
         {
-            Log.Warning($"Request to GetPiece {id} by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Forbid();
-            }
             // Return the specified piece
             var specifiedPiece = _context.Piece.Find(id);
 
@@ -60,12 +47,6 @@ namespace AlphaParAPI.Controllers
         [HttpPost]
         public ActionResult AddPiece([FromBody]Piece piece)
         {
-            Log.Warning($"Request to AddPiece {piece.Id} by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Forbid();
-            }
             // Create the piece with all information
             var specifiedProductionChain = _context.Plan.Find(piece.IdProductionChain);
             if (piece.Name == null || specifiedProductionChain == null)
@@ -85,12 +66,6 @@ namespace AlphaParAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult ModifyPiece(string id, [FromBody]Piece piece)
         {
-            Log.Warning($"Request to ModifyPiece {piece.Id} by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Forbid();
-            }
             // Update the specified piece
             var specifiedPiece = _context.Piece.Find(id);
             if (specifiedPiece == null)
@@ -119,12 +94,6 @@ namespace AlphaParAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeletePiece(string id)
         {
-            Log.Warning($"Request to DeletePiece {id} by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Forbid();
-            }
             // Delete the specified piece
             var specifiedPiece = _context.Piece.Find(id);
             var PieceExistsInPlan = _context.Plan.Select(x => x.IdPiece == id).FirstOrDefault();
