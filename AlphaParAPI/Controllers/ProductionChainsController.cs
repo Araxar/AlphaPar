@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AlphaParAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,12 +24,6 @@ namespace AlphaParAPI.Controllers
         [HttpGet("", Name = "GetProductionChains")]
         public IEnumerable<ProductionChain> GetProductionChains()
         {
-            Log.Warning($"Request to GetProductionChains by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Forbid();
-            }
             // Return the production chains list
             return _context.ProductionChain.ToList();
         }
@@ -39,12 +32,6 @@ namespace AlphaParAPI.Controllers
         [HttpGet("{id}", Name = "GetProductionChain")]
         public ActionResult<ProductionChain> GetProductionChain(string id)
         {
-            Log.Warning($"Request to GetProductionChain {id} by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Forbid();
-            }
             // Return the specified production chain list
             var specifiedProductionChain = _context.ProductionChain.Find(id);
 
@@ -60,12 +47,6 @@ namespace AlphaParAPI.Controllers
         [HttpPost]
         public ActionResult AddProductionChain([FromBody]ProductionChain productionChain)
         {
-            Log.Warning($"Request to AddProductionChain {productionChain.Id} by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Forbid();
-            }
             // Create a production chain with all information
             if (productionChain.Name == null)
             {
@@ -84,12 +65,7 @@ namespace AlphaParAPI.Controllers
         [HttpPut("{ids}")]
         public IActionResult ModifyProductionChain(string id, [FromBody]ProductionChain productionChain)
         {
-            Log.Warning($"Request to ModifyProductionChain {productionChain.Id} by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Forbid();
-            }            // Update the specified production chain
+            // Update the specified production chain
             var specifiedProductionChain = _context.ProductionChain.Find(id);
             if (specifiedProductionChain == null)
             {
@@ -116,13 +92,6 @@ namespace AlphaParAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteProductionChain(string id)
         {
-            Log.Warning($"Request to DeleteProductionChain {id} by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
-            {
-                return Forbid();
-            }
-
             // Delete the specified production chain
             var specifiedProductionChain = _context.ProductionChain.Find(id);
             var ProductionChainExistsInPiece = _context.Piece.Select(x => x.IdProductionChain == id).FirstOrDefault();
