@@ -14,6 +14,7 @@ namespace AlphaParAPI.Controllers
 {
     [Route("api/employees")]
     [ApiController]
+    [AllowAnonymous]
     public class EmployeesController : ControllerBase
     {
         private readonly ModelContext _context;
@@ -31,7 +32,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Return the employees list
             return _context.Employee.ToList();
@@ -45,7 +46,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Return the specified employee
             var specifiedEmployee = _context.Employee.Find(id);

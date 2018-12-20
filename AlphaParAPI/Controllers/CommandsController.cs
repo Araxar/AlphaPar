@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AlphaParAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -12,6 +13,7 @@ using Serilog;
 namespace AlphaParAPI.Controllers
 {
     [Route("api/commands")]
+    [AllowAnonymous]
     public class CommandsController : ControllerBase
     {
 
@@ -30,7 +32,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+              //  return Forbid();
             }
             // Return the commands list
             return _context.Command.Include(x => x.Customer).Include(y => y.Plan).ThenInclude(z => z.Piece).ThenInclude(w => w.ProductionChain).ToList();
@@ -44,7 +46,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Return the specified command
             var specifiedCommand = _context.Command.Find(id);
@@ -65,7 +67,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+             //   return Forbid();
             }
             // Create a command with all information
             var specifiedPlan = _context.Plan.Find(command.IdPlan);
@@ -92,7 +94,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+                //return Forbid();
             }
             // Update the specified command
             var specifiedCommand = _context.Command.Find(id);
@@ -130,7 +132,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+              //  return Forbid();
             }
             // Delete the specified command
             var specifiedCommand = _context.Command.Find(id);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Text;
 using AlphaParAPI.Models;
@@ -35,21 +36,22 @@ namespace AlphaParAPI
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("https://localhost:44335")
+                    builder => builder.WithOrigins()
                                   .AllowAnyMethod()
-                                  .AllowAnyHeader());
+                                  .AllowAnyHeader()
+                                  .AllowAnyOrigin());
             });
           
             services.Configure<IISOptions>(options =>
             {
-                options.AutomaticAuthentication = true;
+                options.AutomaticAuthentication = false;
             });
 
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            //services.AddAuthentication(IISDefaults.AuthenticationScheme);
             // services.AddAuthentication().AddMicrosoftAccount();
 
             services.AddDbContext<ModelContext>(options =>
@@ -66,36 +68,37 @@ namespace AlphaParAPI
             }
             else
             {
-                app.UseHsts();
+                //sapp.UseDeveloperExceptionPage();
+                //app.UseHsts();
             }
             app.UseCors("AllowSpecificOrigin");
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
+            //app.UseHttpsRedirection();
+            //app.UseAuthentication();
             app.UseMvc();
-            app.Run(async (context) =>
-            {
-                try
-                {
-                    var user = (WindowsIdentity)context.User.Identity;
+            //app.Run(async (context) =>
+            //{
+            //    try
+            //    {
+            //        var user = (WindowsIdentity)context.User.Identity;
 
-                    await context.Response
-                                 .WriteAsync($"User: {user.Name}\tState: {user.ImpersonationLevel}\n");
+            //        await context.Response
+            //                     .WriteAsync($"User: {user.Name}\tState: {user.ImpersonationLevel}\n");
 
-                    WindowsIdentity.RunImpersonated(user.AccessToken, () =>
-                    {
-                        var impersonatedUser = WindowsIdentity.GetCurrent();
-                        var message =
-                            $"User: {impersonatedUser.Name}\tState: {impersonatedUser.ImpersonationLevel}";
+            //        WindowsIdentity.RunImpersonated(user.AccessToken, () =>
+            //        {
+            //            var impersonatedUser = WindowsIdentity.GetCurrent();
+            //            var message =
+            //                $"User: {impersonatedUser.Name}\tState: {impersonatedUser.ImpersonationLevel}";
 
-                        var bytes = Encoding.UTF8.GetBytes(message);
-                        context.Response.Body.Write(bytes, 0, bytes.Length);
-                    });
-                }
-                catch (Exception e)
-                {
-                    await context.Response.WriteAsync(e.ToString());
-                }
-            });
+            //            var bytes = Encoding.UTF8.GetBytes(message);
+            //            context.Response.Body.Write(bytes, 0, bytes.Length);
+            //        });
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        await context.Response.WriteAsync(e.ToString());
+            //    }
+            //});
         }
     }
 }

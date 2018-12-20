@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AlphaParAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -12,6 +13,7 @@ using Serilog;
 namespace AlphaParAPI.Controllers
 {
     [Route("api/plans")]
+    [AllowAnonymous]
     public class PlansController : ControllerBase
     {
         private readonly ModelContext _context;
@@ -29,7 +31,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Return the plans list
             return _context.Plan.Include(x => x.Piece).ThenInclude(x => x.ProductionChain).ToList();
@@ -43,7 +45,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Return the specified plan
             var specifiedPlan = _context.Plan.Find(id);
@@ -64,7 +66,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Create the plan with all information
             var specifiedPiece = _context.Piece.Find(plan.IdPiece);
@@ -90,7 +92,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+              //  return Forbid();
             }
             // Update the specified plan
             var specifiedPlan = _context.Plan.Find(id);
@@ -126,7 +128,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Delete the specified plan
             var specifiedPlan = _context.Plan.Find(id);

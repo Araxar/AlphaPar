@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AlphaParAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -12,6 +13,7 @@ using Serilog;
 namespace AlphaParAPI.Controllers
 {
     [Route("api/pieces")]
+    [AllowAnonymous]
     public class PiecesController : ControllerBase
     {
         private readonly ModelContext _context;
@@ -29,7 +31,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+                //return Forbid();
             }
             // Return the pieces list
             return _context.Piece.Include(x => x.ProductionChain).ToList();
@@ -43,7 +45,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+                //return Forbid();
             }
             // Return the specified piece
             var specifiedPiece = _context.Piece.Find(id);
@@ -64,7 +66,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Create the piece with all information
             var specifiedProductionChain = _context.ProductionChain.Find(piece.IdProductionChain);
@@ -89,7 +91,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+              //  return Forbid();
             }
             // Update the specified piece
             var specifiedPiece = _context.Piece.Find(id);
@@ -124,7 +126,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Delete the specified piece
             var specifiedPiece = _context.Piece.Find(id);

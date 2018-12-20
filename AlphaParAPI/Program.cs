@@ -11,7 +11,6 @@ namespace AlphaParAPI
     {
         public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddEnvironmentVariables()
             .Build();
 
@@ -30,7 +29,6 @@ namespace AlphaParAPI
                 .MinimumLevel.Warning()
                 .ReadFrom.Configuration(Configuration)
                 .WriteTo.Console()
-                .WriteTo.MSSqlServer(Configuration.GetConnectionString("AlphaParLog"), "LogSecu", autoCreateSqlTable: true)
                 .WriteTo.File("Logs/AlphaParLog-.txt",
                     outputTemplate: "{Timestamp: yyyy-MM-dd HH:mm:ss} {Message:lj}{NewLine}{Properties:j}",
                     rollingInterval: RollingInterval.Hour)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AlphaParAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -12,6 +13,7 @@ using Serilog;
 namespace AlphaParAPI.Controllers
 {
     [Route("api/productionChain")]
+    [AllowAnonymous]
     public class ProductionChainsController : ControllerBase
     {
         private readonly ModelContext _context;
@@ -29,7 +31,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Return the production chains list
             return _context.ProductionChain.ToList();
@@ -43,7 +45,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Return the specified production chain list
             var specifiedProductionChain = _context.ProductionChain.Find(id);
@@ -64,7 +66,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+              //  return Forbid();
             }
             // Create a production chain with all information
             if (productionChain.Name == null)
@@ -88,7 +90,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+              //  return Forbid();
             }            // Update the specified production chain
             var specifiedProductionChain = _context.ProductionChain.Find(id);
             if (specifiedProductionChain == null)
@@ -120,7 +122,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
 
             // Delete the specified production chain

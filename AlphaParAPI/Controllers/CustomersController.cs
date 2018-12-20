@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AlphaParAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -12,6 +13,7 @@ using Serilog;
 namespace AlphaParAPI.Controllers
 {
     [Route("api/customers")]
+    [AllowAnonymous]
     public class CustomersController : ControllerBase
     {
         private readonly ModelContext _context;
@@ -25,11 +27,14 @@ namespace AlphaParAPI.Controllers
         [HttpGet("", Name = "GetCustomers")]
         public ActionResult<List<Customer>> GetCustomers()
         {
-            Log.Warning($"Request to GetCustomers by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
-            if (!HttpContext.User.Identity.IsAuthenticated)
+            if (HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+                Log.Warning($"Request to GetCustomers by authentified user {HttpContext.User.Identity.Name}");
+                Utils.GetClientMac(this.HttpContext);
+            }
+            else
+            {
+               // return Forbid();
             }
             // Return the customers list
             return _context.Customer.ToList();
@@ -39,11 +44,15 @@ namespace AlphaParAPI.Controllers
         [HttpGet("{name}", Name = "GetCustomer")]
         public ActionResult<Customer> GetCustomer(Customer customer, string name)
         {
-            Log.Warning($"Request to GetCustomer {customer.Id} by authentified user {HttpContext.User.Identity.Name}");
-            Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
+            }
+            else
+            {
+                Log.Warning($"Request to GetCustomer {customer.Id} by authentified user {HttpContext.User.Identity.Name}");
+                Utils.GetClientMac(this.HttpContext);
+
             }
             // Return the specified customer
             var specifiedCustomer = _context.Customer.First(x => x.Name == name);
@@ -64,7 +73,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+                //return Forbid();
             }
 
             // Create a customer with all information
@@ -89,7 +98,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+                //return Forbid();
             }
             // Update the specified customer
             var specifiedCustomer = _context.Customer.Find(id);
@@ -125,7 +134,7 @@ namespace AlphaParAPI.Controllers
             Utils.GetClientMac(this.HttpContext);
             if (!HttpContext.User.Identity.IsAuthenticated)
             {
-                return Forbid();
+               // return Forbid();
             }
             // Delete the specified customer
             var specifiedCustomer = _context.Customer.Find(id);
