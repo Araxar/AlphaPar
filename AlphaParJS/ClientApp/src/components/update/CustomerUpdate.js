@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-
+import { ApiUrl, RedirectUrl } from './../../App';
 
 export class CustomerUpdate extends Component {
     displayName = CustomerUpdate.name
@@ -11,8 +11,8 @@ export class CustomerUpdate extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.state = {
-            targetUrl: 'http://localhost:64156/api/customers/',
-            redirectUrl: 'https://localhost:44335/customers/',
+            targetUrl: ApiUrl + 'customers/',
+            redirectUrl: RedirectUrl + 'customers/',
             currentCustomer: [{
                 email: '',
                 id: '',
