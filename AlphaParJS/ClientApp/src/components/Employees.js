@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import './Pages.css';
+import { ApiUrl } from './../App';
 
 export class Employees extends Component {
     displayName = Employees.name
@@ -19,7 +20,7 @@ export class Employees extends Component {
     }
 
     componentDidMount() {
-        var targetUrl = 'http://localhost:64156/api/employees';
+        var targetUrl = ApiUrl + 'employees';
         fetch(targetUrl)
             .then(response => response.json())
             .then(data => {
