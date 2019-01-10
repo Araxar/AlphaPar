@@ -35,21 +35,22 @@ namespace AlphaParAPI
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("https://localhost:44335")
+                    builder => builder.WithOrigins()
+                                  .AllowAnyOrigin()
                                   .AllowAnyMethod()
                                   .AllowAnyHeader());
             });
           
             services.Configure<IISOptions>(options =>
             {
-                options.AutomaticAuthentication = true;
+                options.AutomaticAuthentication = false;
             });
 
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            //services.AddAuthentication(IISDefaults.AuthenticationScheme);
             // services.AddAuthentication().AddMicrosoftAccount();
 
             services.AddDbContext<ModelContext>(options =>
@@ -69,8 +70,8 @@ namespace AlphaParAPI
                 app.UseHsts();
             }
             app.UseCors("AllowSpecificOrigin");
-            app.UseHttpsRedirection();
-            app.UseAuthentication();
+            //app.UseHttpsRedirection();
+            //app.UseAuthentication();
             app.UseMvc();
             app.Run(async (context) =>
             {
