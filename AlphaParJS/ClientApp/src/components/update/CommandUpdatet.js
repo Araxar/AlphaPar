@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-
+import { ApiUrl, RedirectUrl } from './../../App';
 
 export class CommandUpdate extends Component {
     displayName = CommandUpdate.name
@@ -11,8 +11,8 @@ export class CommandUpdate extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.state = {
-            targetUrl: 'http://localhost:64156/api/commands/',
-            redirectUrl: 'https://localhost:44335/commands/',
+            targetUrl: ApiUrl + 'customers/',
+            redirectUrl: RedirectUrl + 'customers/',
             currentCommand: [{
                 id: '',
                 idCustomer: '',
