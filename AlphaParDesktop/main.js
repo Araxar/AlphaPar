@@ -25,7 +25,7 @@ function createWindow () {
     });
 
     // Load AlphaPar JS locally
-    win.loadURL('http://localhost/AlphaParJS');
+    win.loadURL('http://176.16.0.66/AlphaParJS');
     win.once('ready-to-show', () => {
         win.show()
       })
