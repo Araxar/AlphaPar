@@ -24,8 +24,8 @@ function createWindow () {
         show: false
     });
 
-    // Load AlphaPar ERP locally
-    win.loadURL('http://localhost/');
+    // Load AlphaPar JS locally
+    win.loadURL('http://localhost/AlphaParJS');
     win.once('ready-to-show', () => {
         win.show()
       })
