@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Pages.css';
+import { ApiUrl } from './../App';
 
 export class Customers extends Component {
     displayName = Customers.name
@@ -12,7 +13,7 @@ export class Customers extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.state = {
-            targetUrl: 'http://localhost:64156/api/customers/',
+            targetUrl: ApiUrl + 'customers/',
             name: '',
             siret: '',
             phone: '',
