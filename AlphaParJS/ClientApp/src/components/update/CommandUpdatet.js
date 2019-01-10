@@ -11,8 +11,8 @@ export class CommandUpdate extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.state = {
-            targetUrl: ApiUrl + 'customers/',
-            redirectUrl: RedirectUrl + 'customers/',
+            targetUrl: ApiUrl + 'commands/',
+            redirectUrl: RedirectUrl + 'commands/',
             currentCommand: [{
                 id: '',
                 idCustomer: '',
