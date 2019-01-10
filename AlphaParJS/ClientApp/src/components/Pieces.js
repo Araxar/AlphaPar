@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Pages.css';
+import { ApiUrl } from './../App';
 
 export class Pieces extends Component {
     displayName = Pieces.name
@@ -12,7 +13,7 @@ export class Pieces extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.state = {
-            targetUrl: 'http://localhost:64156/api/pieces/',
+            targetUrl: ApiUrl + 'pieces/',
             name: '',
             stock: 0,
             idProductionChain: '',
