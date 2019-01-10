@@ -1,4 +1,5 @@
 ﻿import React, { Component } from 'react';
+import { ApiUrl, RedirectUrl } from './../../App';
 
 export class ProductionChainUpdate extends Component {
     displayName = ProductionChainUpdate.name
@@ -7,8 +8,8 @@ export class ProductionChainUpdate extends Component {
         super(props);
 
         this.state = {
-            targetUrl: 'http://localhost:64156/api/productionChain/',
-            redirectUrl: 'https://localhost:44335/productionchain/',
+            targetUrl: ApiUrl + 'productionChain/',
+            redirectUrl: RedirectUrl + 'productionchain/',
             currentProductionChain: [{
                 id: '',
                 name: ''
