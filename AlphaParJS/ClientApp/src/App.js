@@ -36,3 +36,6 @@ export default class App extends Component {
         );
     }
 }
+
+export var ApiUrl: string = 'http://localhost:64156/api/';
+export var RedirectUrl: string = 'https://localhost:44335/';
